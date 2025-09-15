@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praximous Design System Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-palette"></i>
+            <span>Praximous Design System</span>
+        </div>
+        <div class="header-actions">
+            <div class="theme-toggle" data-action="toggle-theme">
+                <i class="fas fa-moon"></i> <span>Dark Mode</span>
+            </div>
+            <div class="pro-upgrade" data-action="show-pro-modal">
+                <i class="fas fa-rocket"></i> <span>Upgrade to Pro</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-note">
+                <i class="fas fa-info-circle"></i>
+                <span><strong>Fun Fact:</strong> The default theme was created using this very tool!</span>
+            </div>
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">
+                    Brand Colors
+                    <i class="fas fa-info-circle help-icon" data-property="color" title="Best practices for color usage"></i>
+                </h2>
+                <div class="form-group">
+                    <label for="brand-primary-hex">Primary</label>
+                    <div class="color-picker">
+                        <input type="color" id="brand-primary" class="color-input" aria-label="Choose Primary color">
+                        <input type="text" id="brand-primary-hex" class="color-text-input" maxlength="7">
+                    </div>
+                    <small class="help-text">Used for main actions, buttons, and links.</small>
+                    <small class="contrast-warning" id="contrast-warning-brand-primary"></small>
+                    <small class="contrast-warning" id="contrast-warning-outline"></small>
+                </div>
+                <div class="form-group">
+                    <label for="brand-secondary-hex">Secondary</label>
+                    <div class="color-picker">
+                        <input type="color" id="brand-secondary" class="color-input" aria-label="Choose Secondary color">
+                        <input type="text" id="brand-secondary-hex" class="color-text-input" maxlength="7">
+                    </div>
+                    <small class="help-text">Used for secondary actions and highlighting information.</small>
+                    <small class="contrast-warning" id="contrast-warning-brand-secondary"></small>
+                </div>
+                <div class="form-group">
+                    <label for="brand-accent-hex">Accent</label>
+                    <div class="color-picker">
+                        <input type="color" id="brand-accent" class="color-input" aria-label="Choose Accent color">
+                        <input type="text" id="brand-accent-hex" class="color-text-input" maxlength="7">
+                    </div>
+                    <small class="help-text">Used for CTAs, alerts, and special highlights.</small>
+                    <small class="contrast-warning" id="contrast-warning-brand-accent"></small>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Typography</h2>
+                <div class="form-group">
+                    <label for="font-family">
+                        Font Family
+                        <i class="fas fa-info-circle help-icon" data-property="font-family" title="Best practices for font family"></i>
+                    </label>
+                    <select id="font-family">
+                        <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Helvetica Neue', Helvetica, sans-serif">Helvetica</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Courier New', monospace" selected>Courier New</option>
+                    </select>
+                    <small class="help-text">Sets the default font for all text.</small>
+                </div>
+                <div class="form-group">
+                    <label for="font-size-base">
+                        Base Font Size
+                        <i class="fas fa-info-circle help-icon" data-property="font-size" title="Best practices for font size"></i>
+                    </label>
+                    <input type="range" id="font-size-base" min="12" max="24" value="16">
+                    <span id="font-size-value">16px</span>
+                    <small class="help-text">Controls the root font size. Other text scales from this.</small>
+                </div>
+                <div class="form-group">
+                    <label for="letter-spacing">
+                        Letter Spacing
+                        <i class="fas fa-info-circle help-icon" data-property="letter-spacing" title="Best practices for letter spacing"></i>
+                    </label>
+                    <input type="range" id="letter-spacing" min="-1" max="3" value="-1" step="0.1">
+                    <span id="letter-spacing-value">-1px</span>
+                    <small class="help-text">Adjusts the space between characters.</small>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">
+                    Spacing
+                    <i class="fas fa-info-circle help-icon" data-property="margin" title="Best practices for spacing"></i>
+                </h2>
+                <div class="form-group">
+                    <label for="spacing-unit">Base Spacing Unit</label>
+                    <input type="range" id="spacing-unit" min="4" max="12" value="6">
+                    <span id="spacing-value">6px</span>
+                    <small class="help-text">The core unit for margins and padding.</small>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">
+                    Border Radius
+                    <i class="fas fa-info-circle help-icon" data-property="border-radius" title="Best practices for border radius"></i>
+                </h2>
+                <div class="form-group">
+                    <label for="border-radius">Border Radius</label>
+                    <input type="range" id="border-radius" min="0" max="20" value="8">
+                    <span id="border-radius-value">8px</span>
+                    <small class="help-text">Controls the roundness of corners on elements.</small>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">
+                    Shadows
+                    <i class="fas fa-info-circle help-icon" data-property="box-shadow" title="Best practices for shadows"></i>
+                </h2>
+                <div class="form-group">
+                    <label for="shadow-y">Y-Offset</label>
+                    <input type="range" id="shadow-y" min="0" max="10" value="10">
+                    <span id="shadow-y-value">10px</span>
+                    <small class="help-text">Vertical distance of the shadow.</small>
+                </div>
+                <div class="form-group">
+                    <label for="shadow-blur">Blur</label>
+                    <input type="range" id="shadow-blur" min="0" max="20" value="9">
+                    <span id="shadow-blur-value">9px</span>
+                    <small class="help-text">The blurriness of the shadow.</small>
+                </div>
+                <div class="form-group">
+                    <label for="shadow-opacity">Opacity</label>
+                    <input type="range" id="shadow-opacity" min="0" max="0.5" value="0.22" step="0.01">
+                    <span id="shadow-opacity-value">0.22</span>
+                    <small class="help-text">The transparency of the shadow.</small>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h2 class="sidebar-title">Export Options</h2>
+                <div class="export-options">
+                    <button class="app-btn" data-action="save-theme" title="Save current settings to a local JSON file">
+                        <i class="fas fa-download"></i> Save Locally
+                    </button>
+                    <button class="app-btn app-btn-pro" data-action="show-pro-modal" title="Save to the cloud (Pro feature)">
+                        <i class="fas fa-cloud-upload-alt"></i> Save to Cloud
+                    </button>
+                    <label for="load-theme-input" class="app-btn" title="Load settings from a JSON file">
+                        <i class="fas fa-upload"></i> Load
+                    </label>
+                    <input type="file" id="load-theme-input" accept=".json" class="hidden-file-input">
+                    <button class="app-btn" data-action="reset-theme" title="Reset all styles to default">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                    <button class="app-btn app-btn-primary" data-action="export-css" title="Download the generated CSS file">
+                        <i class="fas fa-download"></i> Export CSS
+                    </button>
+                    <button class="app-btn" data-action="export-scss" title="Download variables as an SCSS file">
+                        <i class="fab fa-sass"></i> Export SCSS
+                    </button>
+                    <button class="app-btn" data-action="generate-docs" title="Generate a style guide HTML file">
+                        <i class="fas fa-book"></i> Docs
+                    </button>
+                    <button class="app-btn" data-action="show-html-example" title="Show a basic HTML usage example">
+                        <i class="fab fa-html5"></i> Show HTML
+                    </button>
+                </div>
+                <div class="export-code" id="exported-css"></div>
+                <div class="export-code" id="html-example-code"></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="card">
+                <h3 class="card-title">Color System</h3>
+                <div class="color-grid">
+                     <div class="color-item color-primary">Primary</div>
+                     <div class="color-item color-secondary">Secondary</div>
+                     <div class="color-item color-accent">Accent</div>
+                     <div class="color-item color-success">Success</div>
+                     <div class="color-item color-warning">Warning</div>
+                     <div class="color-item color-danger">Danger</div>
+                </div>
+            </div>
+             <div class="card">
+                <h3 class="card-title">UI Components</h3>
+                <div class="component-btn-row">
+                    <button class="btn btn-primary">Get Started</button>
+                    <button class="btn btn-secondary">Learn More</button>
+                    <button class="btn btn-outline">Cancel</button>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInput">Example Text Input</label>
+                    <input type="text" id="exampleInput" placeholder="e.g., #148aff">
+                </div>
+             </div>
+             <div class="card">
+                <h3 class="card-title">Typography</h3>
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <p>This is a paragraph of text using the current font family and size settings.</p>
+                <p class="text-secondary">This is secondary text with the defined secondary color.</p>
+             </div>
+             <div class="card">
+                <h3 class="card-title">Alerts</h3>
+                <div class="alert alert-success"><i class="fas fa-check-circle"></i> This is a success alert. Good job!</div>
+                <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> This is a warning alert. Be careful.</div>
+                <div class="alert alert-danger"><i class="fas fa-times-circle"></i> This is a danger alert. Something went wrong.</div>
+             </div>
+             <div class="card">
+                <h3 class="card-title">Data Table</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>John Doe</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>Admin</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Jane Smith</td>
+                            <td><span class="badge badge-warning">Pending</span></td>
+                            <td>Editor</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sam Wilson</td>
+                            <td><span class="badge badge-danger">Inactive</span></td>
+                            <td>User</td>
+                        </tr>
+                    </tbody>
+                </table>
+             </div>
+             <div class="card">
+                <h3 class="card-title">Navigation Bar</h3>
+                <nav class="navbar">
+                    <div class="navbar-brand">BrandLogo</div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                    </ul>
+                    <button class="btn btn-primary">Sign Up</button>
+                </nav>
+             </div>
+             <div class="content-preview-document">
+                <h1>Praximous Design System Generator</h1>
+                <p class="text-secondary">This is a live preview of how styled content will look. All typography, colors, and spacing are controlled by the settings on the left.</p>
+                <hr>
+
+                <h2>The Problem: The Challenge of Brand Consistency</h2>
+                <p>As Praximous scales and develops more digital products, we face several critical challenges:</p>
+                <ul>
+                    <li><strong>Brand Dilution:</strong> Without a central style guide, projects can develop inconsistencies in colors, fonts, and spacing.</li>
+                    <li><strong>Wasted Developer Hours:</strong> Developers spend valuable time writing boilerplate CSS and "reinventing the wheel".</li>
+                    <li><strong>High Maintenance Overhead:</strong> A simple brand refresh becomes a monumental task, requiring developers to hunt down and edit multiple stylesheets.</li>
+                </ul>
+
+                <h2>The Solution: A Single Source of Truth</h2>
+                <p>This Design System Generator solves these problems by becoming the single source of truth for all front-end styling. Developers can skip the tedious CSS setup. They simply download the latest <code>praximous-styles.css</code> from this tool and can immediately start building features.</p>
+
+                <pre><code>:root {
+  --brand-primary: #148aff;
+  --font-family: 'Courier New', monospace;
+}
+.button {
+  background-color: var(--brand-primary);
+  font-family: var(--font-family);
+}</code></pre>
+
+                <h2>Key Features</h2>
+                <ul>
+                    <li>Live Visual Editing & Real-time Preview</li>
+                    <li>Dark/Light Theme Support</li>
+                    <li>One-Click CSS Export & SCSS Variables</li>
+                    <li>Smart Tooltips with Best Practices</li>
+                </ul>
+             </div>
+        </main>
+    </div>
+
+    <!-- Pro Features Modal -->
+    <div id="pro-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" data-action="close-pro-modal">&times;</button>
+            <div class="pro-container">
+                <div class="pro-header">
+                    <h1><i class="fas fa-rocket"></i> Praximous Pro</h1>
+                    <p>Unlock the future of design systems with our "CSS-as-a-Service" vision.</p>
+                </div>
+        
+                <table class="pro-comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free</th>
+                            <th>Pro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Live Visual Editing & Real-time Preview</td>
+                            <td class="check">✓</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr>
+                            <td>Dark/Light Theme Support</td>
+                            <td class="check">✓</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr>
+                            <td>One-Click CSS File Export</td>
+                            <td class="check">✓</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr>
+                            <td>Save/Load Theme Profiles (JSON file)</td>
+                            <td class="check">✓</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr class="pro-feature-row">
+                            <td><strong>Live-Hosted Stylesheets (CDN)</strong></td>
+                            <td class="cross">✕</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr class="pro-feature-row">
+                            <td><strong>"Publish" to Live URL (Zero-Effort Updates)</strong></td>
+                            <td class="cross">✕</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr class="pro-feature-row">
+                            <td><strong>Versioning and Rollbacks</strong></td>
+                            <td class="cross">✕</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr class="pro-feature-row">
+                            <td><strong>User Accounts & Team Collaboration</strong></td>
+                            <td class="cross">✕</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr class="pro-feature-row">
+                            <td><strong>Design Tool Integrations (Figma, etc.)</strong></td>
+                            <td class="cross">✕</td>
+                            <td class="check">✓</td>
+                        </tr>
+                        <tr class="pro-feature-row">
+                            <td><strong>Theming API Access</strong></td>
+                            <td class="cross">✕</td>
+                            <td class="check">✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+        
+                <div class="pro-best-practices">
+                    <h2 class="pro-section-title">Core CSS Best Practices</h2>
+                    <p>Mastering these concepts will make your CSS more scalable, maintainable, and robust.</p>
+            
+                    <div class="practice-item">
+                        <h3>CSS Variables (Custom Properties)</h3>
+                        <p>Instead of hardcoding values like <code>#2c3e50</code> everywhere, define them once in a <code>:root</code> block and reuse them. This is the foundation of this entire tool.</p>
+                        <p><strong>Benefit:</strong> Allows for easy theming (like light/dark mode) and ensures consistency. A change in one place updates the entire site.</p>
+                        <pre><code>:root {
+  --brand-primary: #2c3e50;
+}
+.button {
+  background-color: var(--brand-primary);
+}</code></pre>
+                    </div>
+            
+                    <div class="practice-item">
+                        <h3>Naming Conventions (BEM)</h3>
+                        <p>BEM (Block, Element, Modifier) is a methodology for naming CSS classes to be more descriptive and avoid conflicts.</p>
+                        <ul>
+                            <li><strong>Block:</strong> A standalone component (e.g., <code>.card</code>).</li>
+                            <li><strong>Element:</strong> A part of a block (e.g., <code>.card__title</code>).</li>
+                            <li><strong>Modifier:</strong> A variation of a block or element (e.g., <code>.card--dark</code>).</li>
+                        </ul>
+                        <p><strong>Benefit:</strong> Makes CSS modular, understandable, and less prone to side effects.</p>
+                    </div>
+            
+                    <div class="practice-item">
+                        <h3>Responsive Design (Media Queries)</h3>
+                        <p>Media queries allow you to apply specific CSS rules only when certain conditions are met, like screen width.</p>
+                        <p><strong>Benefit:</strong> Ensures your website looks good and is usable on all devices, from mobile phones to desktops.</p>
+                        <pre><code>.container {
+  width: 90%;
+}
+/* On screens 768px or wider */
+@media (min-width: 768px) {
+  .container {
+    width: 80%;
+  }
+}</code></pre>
+                    </div>
+            
+                    <div class="practice-item">
+                        <h3>Selectors and Specificity</h3>
+                        <p>Specificity is the weight a browser applies to a CSS declaration to determine which rule is the most specific and should be applied. The hierarchy from least to most specific is:</p>
+                        <ol>
+                            <li>Type selectors (e.g., <code>div</code>, <code>h1</code>)</li>
+                            <li>Class selectors (e.g., <code>.card</code>), attribute selectors, pseudo-classes</li>
+                            <li>ID selectors (e.g., <code>#main-header</code>)</li>
+                            <li>Inline styles (e.g., <code>style="..."</code>)</li>
+                        </ol>
+                        <p><strong>Best Practice:</strong> Prefer using class selectors for styling. Avoid using IDs for styling as they have very high specificity and cannot be reused. Avoid <code>!important</code> unless absolutely necessary, as it overrides all other rules and makes debugging difficult.</p>
+                    </div>
+                </div>
+
+                <a href="mailto:support@praximous.com?subject=Praximous Pro Inquiry" class="cta-button">Contact Us for Pro Access</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="help-tooltip" class="help-tooltip"></div>
+
+    <!-- Template for the generated Style Guide document -->
+    <template id="style-guide-template">
+        <html lang="en" data-theme="light">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Praximous Style Guide</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            <style>
+                /* Guide-specific styles */
+                body { font-family: var(--font-family); background-color: var(--bg-color); color: var(--text-primary); padding: var(--spacing-lg); line-height: 1.6; }
+                section { background-color: var(--surface-color); border-radius: var(--border-radius); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg); box-shadow: var(--shadow); }
+                h1, h2, h3, h4, h5, h6 { margin-bottom: var(--spacing-md); font-weight: var(--font-weight-bold); }
+                h1 { font-size: 2.5rem; }
+                h2 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: var(--spacing-sm); }
+                h3 { font-size: 1.5rem; }
+                p { margin-bottom: var(--spacing-md); }
+                code { background-color: var(--bg-color); padding: 2px 5px; border-radius: 4px; font-family: monospace; border: 1px solid var(--border-color); }
+                .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--spacing-md); }
+                .color-swatch { padding: var(--spacing-md); border-radius: var(--border-radius); text-align: center; color: white; font-weight: var(--font-weight-bold); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); margin-bottom: var(--spacing-xs); }
+                .spacing-demo { display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-sm); }
+                .spacing-block { background-color: var(--brand-secondary); }
+                .component-preview { border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: var(--spacing-lg); }
+            </style>
+        </head>
+        <body>
+            <header style="margin-bottom: var(--spacing-xl);">
+                <h1>Praximous Style Guide</h1>
+                <p>Generated on: <span data-placeholder="generation-date"></span></p>
+            </header>
+
+            <section>
+                <h2>Color Palette</h2>
+                <div class="color-grid" data-placeholder="color-grid">
+                    <!-- Color swatches will be injected here -->
+                </div>
+            </section>
+
+            <section>
+                <h2>Typography</h2>
+                <h3>Font Family: <code data-placeholder="font-family"></code></h3>
+                <hr style="margin: var(--spacing-md) 0; border-color: var(--border-color);">
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <p>This is a paragraph of body text. It uses the base font size of <code data-placeholder="font-size"></code> and letter spacing of <code data-placeholder="letter-spacing"></code>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </section>
+
+            <section>
+                <h2>Spacing</h2>
+                <p>The base spacing unit is used to create a consistent rhythm. All margins and paddings are multiples of this base.</p>
+                <div data-placeholder="spacing-demos">
+                    <!-- Spacing demos will be injected here -->
+                </div>
+            </section>
+
+            <section>
+                <h2>Layout Properties</h2>
+                <p><strong>Border Radius:</strong> <code data-placeholder="border-radius"></code></p>
+                <div style="width: 100px; height: 100px; background: var(--brand-primary); border-radius: var(--border-radius); margin-bottom: var(--spacing-md);"></div>
+                <p><strong>Shadow:</strong> <code data-placeholder="shadow"></code></p>
+                <div style="width: 100px; height: 100px; background: var(--surface-color); box-shadow: var(--shadow); border: 1px solid var(--border-color);"></div>
+            </section>
+
+            <section>
+                <h2>Components</h2>
+                <h3>Buttons</h3>
+                <div class="component-preview">
+                    <button class="btn btn-primary">Get Started</button>
+                    <button class="btn btn-secondary">Learn More</button>
+                    <button class="btn btn-outline">Cancel</button>
+                </div>
+                <h3 style="margin-top: var(--spacing-lg);">Alerts</h3>
+                <div class="component-preview">
+                    <div class="alert alert-success"><i class="fas fa-check-circle"></i> This is a success alert.</div>
+                    <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> This is a warning alert.</div>
+                    <div class="alert alert-danger"><i class="fas fa-times-circle"></i> This is a danger alert.</div>
+                </div>
+            </section>
+        </body>
+        </html>
+    </template>
+
+    <script src="color-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
