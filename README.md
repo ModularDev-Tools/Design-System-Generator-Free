@@ -9,7 +9,7 @@ The Praximous Design System Generator is a powerful internal tool designed to cr
 
 The final output is a production-ready `praximous-styles.css` file that can be imported into any project, ensuring brand uniformity and accelerating development.
 
-![Screenshot of the Praximous Design System Generator in action.](path/to/your/screenshot.png)
+![Screenshot of the Praximous Design System Generator in action.](images/Screenshot.png)
 
 > **Dogfooding in Action:** The current default theme you see when you open the generator was created entirely *with* the generator itself! We used the tool to define our new brand styles and then integrated the exported CSS back into the project as the new default.
 
