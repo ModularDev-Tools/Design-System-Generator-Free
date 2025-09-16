@@ -184,6 +184,12 @@ function updateColor(variableName, value) {
     if (textInput) {
         textInput.value = value;
     }
+    
+    // Also set an RGB version for use in rgba() contexts like ripples
+    const rgb = parseColor(value);
+    if (rgb) {
+        document.documentElement.style.setProperty(`--${variableName}-rgb`, `${rgb.r}, ${rgb.g}, ${rgb.b}`);
+    }
 
     checkContrast(variableName, value);
 
@@ -925,4 +931,108 @@ document.getElementById('pro-modal').addEventListener('click', (event) => {
 applyState(DEFAULT_STATE);
 initializeHelpTooltips();
 initializeColorPickers();
+initializePrivacySettings();
+
+// --- PRIVACY SETTINGS ---
+function initializePrivacySettings() {
+    const privacyButton = document.getElementById('privacyButton');
+    const modalOverlay = document.getElementById('privacyModalOverlay');
+    const closeModal = document.getElementById('closePrivacyModal');
+
+    if (!privacyButton || !modalOverlay || !closeModal) {
+        return; // Don't run if elements are missing
+    }
+    const toggles = modalOverlay.querySelectorAll('.toggle-switch');
+
+    const privacySettings = {
+        analytics: false,
+        themePreferences: true,
+        errorReporting: true,
+        featureTracking: false
+    };
+
+    function loadSettings() {
+        const saved = localStorage.getItem('praximousPrivacySettings');
+        if (saved) {
+            try {
+                Object.assign(privacySettings, JSON.parse(saved));
+            } catch (e) {
+                console.error("Could not parse privacy settings from localStorage", e);
+            }
+        }
+        updateAllTogglesUI();
+    }
+
+    function saveSettings() {
+        localStorage.setItem('praximousPrivacySettings', JSON.stringify(privacySettings));
+    }
+
+    function updateAllTogglesUI() {
+        toggles.forEach(toggle => {
+            const settingKey = toggle.dataset.setting;
+            if (settingKey && privacySettings[settingKey] !== undefined) {
+                const isActive = privacySettings[settingKey];
+                toggle.classList.toggle('active', isActive);
+                toggle.setAttribute('aria-checked', String(isActive));
+            }
+        });
+    }
+
+    function showNotification(message) {
+        if (document.querySelector('.privacy-notification')) return;
+
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.className = 'privacy-notification';
+        document.body.appendChild(notification);
+
+        requestAnimationFrame(() => {
+            notification.classList.add('visible');
+        });
+
+        setTimeout(() => {
+            notification.classList.remove('visible');
+            notification.addEventListener('transitionend', () => {
+                if (notification.parentElement) {
+                    document.body.removeChild(notification);
+                }
+            }, { once: true });
+        }, 3000);
+    }
+
+    privacyButton.addEventListener('click', () => {
+        modalOverlay.classList.add('visible');
+        document.body.style.overflow = 'hidden';
+    });
+
+    function closePrivacyModal() {
+        modalOverlay.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    closeModal.addEventListener('click', closePrivacyModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closePrivacyModal();
+    });
+
+    modalOverlay.querySelector('.privacy-options').addEventListener('click', (e) => {
+        const toggle = e.target.closest('.toggle-switch');
+        if (!toggle) return;
+        const settingKey = toggle.dataset.setting;
+        if (!settingKey || privacySettings[settingKey] === undefined) return;
+
+        const newValue = !privacySettings[settingKey];
+        privacySettings[settingKey] = newValue;
+        toggle.classList.toggle('active', newValue);
+        toggle.setAttribute('aria-checked', String(newValue));
+        saveSettings();
+        showNotification('Privacy settings updated');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('visible')) closePrivacyModal();
+    });
+
+    loadSettings();
+}
 });
